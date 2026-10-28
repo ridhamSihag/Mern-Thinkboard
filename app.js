@@ -2,7 +2,9 @@
 const express = require('express');
 const morgan = require('morgan')
 const app = express();
-const userModel = require('./models/user')
+const userModel = require('./public/models/user')
+const dbConnection = require('./config/db')
+
 
 
 app.use (morgan('dev'))
@@ -30,6 +32,18 @@ app.get('/about', (req, res) => {
 app.get('/profile', (req, res) => {
     res.send('Profile Page');
 });
+
+app.get('/register',(req,res) =>{
+    res.render('register')
+})
+
+app.post('/register', (req,res) =>{
+    console.log(req.body);
+    res.send('user registered  bleblebleblebleee')
+
+
+
+})
 
 app.post('/get-form-data', (req, res) => {
     console.log(req.body);
