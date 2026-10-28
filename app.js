@@ -37,13 +37,27 @@ app.get('/register',(req,res) =>{
     res.render('register')
 })
 
-app.post('/register', (req,res) =>{
-    console.log(req.body);
-    res.send('user registered  bleblebleblebleee')
 
 
+app.post('/register', async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
 
-})
+        const newUser = await userModel.create({
+            username: username,
+            email: email,
+            password: password
+        });
+
+        console.log("User saved:", newUser);
+
+        res.send("User registered successfully!");
+    } catch (error) {
+        console.log("Error:", error);
+        res.status(500).send("Error registering user");
+    }
+});
+
 
 app.post('/get-form-data', (req, res) => {
     console.log(req.body);
